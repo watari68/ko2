@@ -202,7 +202,13 @@ function calculateTotalAttack(character) {
     }
     
     // Ekipmanların katkısı
-    // Not: Bu kısım, ekipmanlara sahip olduğumuzda genişletilebilir
+    if (character.equipment) {
+        Object.values(character.equipment).forEach(item => {
+            if (item && item.stats && item.stats.attack) {
+                base += item.stats.attack;
+            }
+        });
+    }
     
     return Math.floor(base);
 }
@@ -228,7 +234,13 @@ function calculateTotalDefense(character) {
     }
     
     // Ekipmanların katkısı
-    // Not: Bu kısım, ekipmanlara sahip olduğumuzda genişletilebilir
+    if (character.equipment) {
+        Object.values(character.equipment).forEach(item => {
+            if (item && item.stats && item.stats.defense) {
+                base += item.stats.defense;
+            }
+        });
+    }
     
     return Math.floor(base);
 }
@@ -245,4 +257,53 @@ function updateStatBars(character) {
     // Mana barı
     const manaBar = document.querySelector('.mana-bar .stat-fill');
     const manaText = document.querySelector('.mana-bar .stat-text');
-    const manaPercent = (character.stats.currentMana / character.stats.mana) * 
+    const manaPercent = (character.stats.currentMana / character.stats.mana) * 100;
+    manaBar.style.width = `${manaPercent}%`;
+    manaText.textContent = `${character.stats.currentMana}/${character.stats.mana}`;
+    
+    // XP barı
+    const expBar = document.querySelector('.exp-bar .stat-fill');
+    const expText = document.querySelector('.exp-bar .stat-text');
+    const expPercent = (character.experience / calculateExpForNextLevel(character.level)) * 100;
+    expBar.style.width = `${expPercent}%`;
+    expText.textContent = `${character.experience}/${calculateExpForNextLevel(character.level)}`;
+}
+
+// Sonraki level için gereken XP hesapla
+function calculateExpForNextLevel(currentLevel) {
+    // Basit üstel level artışı formülü
+    return Math.floor(100 * Math.pow(1.5, currentLevel - 1));
+}
+
+// Level atlama bildirim penceresi göster
+function showLevelUpNotification(level) {
+    // Level atlama penceresi
+    const notification = document.createElement('div');
+    notification.className = 'level-up-notification';
+    notification.innerHTML = `
+        <div class="level-up-title">Level Atladın!</div>
+        <div class="level-up-text">Tebrikler! Seviye ${level} oldun.</div>
+        <div class="level-up-rewards">
+            <p>Ödüller:</p>
+            <ul>
+                <li>5 Stat Puanı</li>
+                <li>Yeni Yetenek Puanları</li>
+            </ul>
+        </div>
+        <button class="level-up-close">Tamam</button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Kapat düğmesi
+    notification.querySelector('.level-up-close').addEventListener('click', () => {
+        notification.remove();
+    });
+    
+    // 10 saniye sonra otomatik kapat
+    setTimeout(() => {
+        if (document.body.contains(notification)) {
+            notification.remove();
+        }
+    }, 10000);
+}
