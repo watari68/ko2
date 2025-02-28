@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knight Web RPG</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <div id="login-container" class="auth-container">
+            <div class="auth-box">
+                <h1>Knight Web RPG</h1>
+                <div id="login-form" class="auth-form">
+                    <h2>Giriş Yap</h2>
+                    <div class="form-group">
+                        <label for="login-username">Kullanıcı Adı:</label>
+                        <input type="text" id="login-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Şifre:</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <div class="error-message" id="login-error"></div>
+                    <button id="login-button" class="auth-button">Giriş Yap</button>
+                    <p class="auth-switch">Hesabın yok mu? <a href="#" id="show-register">Kayıt Ol</a></p>
+                </div>
+                
+                <div id="register-form" class="auth-form hidden">
+                    <h2>Kayıt Ol</h2>
+                    <div class="form-group">
+                        <label for="register-username">Kullanıcı Adı:</label>
+                        <input type="text" id="register-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">E-posta:</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Şifre:</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm-password">Şifre Tekrar:</label>
+                        <input type="password" id="register-confirm-password" required>
+                    </div>
+                    <div class="error-message" id="register-error"></div>
+                    <button id="register-button" class="auth-button">Kayıt Ol</button>
+                    <p class="auth-switch">Zaten hesabın var mı? <a href="#" id="show-login">Giriş Yap</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="character-selection" class="hidden">
+            <h2>Karakter Seçimi</h2>
+            <div id="character-list" class="character-grid"></div>
+            <button id="create-character-button">Yeni Karakter Oluştur</button>
+        </div>
+        
+        <div id="character-creation" class="hidden">
+            <h2>Karakter Oluştur</h2>
+            <div class="creation-container">
+                <div class="class-selection">
+                    <h3>Sınıf Seç</h3>
+                    <div class="class-options">
+                        <div class="class-option" data-class="warrior">
+                            <img src="assets/images/classes/warrior.png" alt="Savaşçı">
+                            <h4>Savaşçı</h4>
+                            <p>Güçlü saldırılar ve dayanıklılık</p>
+                        </div>
+                        <div class="class-option" data-class="archer">
+                            <img src="assets/images/classes/archer.png" alt="Okçu">
+                            <h4>Okçu</h4>
+                            <p>Uzaktan hasar ve çeviklik</p>
+                        </div>
+                        <div class="class-option" data-class="mage">
+                            <img src="assets/images/classes/mage.png" alt="Büyücü">
+                            <h4>Büyücü</h4>
+                            <p>Güçlü büyüler ve alan hasarı</p>
+                        </div>
+                        <div class="class-option" data-class="priest">
+                            <img src="assets/images/classes/priest.png" alt="Rahip">
+                            <h4>Rahip</h4>
+                            <p>İyileştirme ve destek yetenekleri</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-customization">
+                    <div class="form-group">
+                        <label for="character-name">Karakter Adı:</label>
+                        <input type="text" id="character-name" required>
+                    </div>
+                    <div class="appearance-options">
+                        <!-- Karakter görünümü seçenekleri buraya gelecek -->
+                    </div>
+                </div>
+            </div>
+            <div class="creation-buttons">
+                <button id="back-to-selection">Geri</button>
+                <button id="create-character">Karakteri Oluştur</button>
+            </div>
+        </div>
+        
+        <div id="game-container" class="hidden">
+            <canvas id="game-canvas"></canvas>
+            
+            <div id="ui-container">
+                <div id="player-stats">
+                    <div class="stat-bar health-bar">
+                        <div class="stat-label">HP</div>
+                        <div class="stat-fill"></div>
+                        <div class="stat-text">100/100</div>
+                    </div>
+                    <div class="stat-bar mana-bar">
+                        <div class="stat-label">MP</div>
+                        <div class="stat-fill"></div>
+                        <div class="stat-text">50/50</div>
+                    </div>
+                    <div class="stat-bar exp-bar">
+                        <div class="stat-label">EXP</div>
+                        <div class="stat-fill"></div>
+                        <div class="stat-text">0/100</div>
+                    </div>
+                </div>
+                
+                <div id="action-bar">
+                    <div class="skill-slots">
+                        <div class="skill-slot" data-slot="1"><div class="cooldown"></div></div>
+                        <div class="skill-slot" data-slot="2"><div class="cooldown"></div></div>
+                        <div class="skill-slot" data-slot="3"><div class="cooldown"></div></div>
+                        <div class="skill-slot" data-slot="4"><div class="cooldown"></div></div>
+                        <div class="skill-slot" data-slot="5"><div class="cooldown"></div></div>
+                        <div class="skill-slot" data-slot="6"><div class="cooldown"></div></div>
+                        <div class="skill-slot" data-slot="7"><div class="cooldown"></div></div>
+                        <div class="skill-slot" data-slot="8"><div class="cooldown"></div></div>
+                    </div>
+                    <div class="potion-slots">
+                        <div class="potion-slot" data-slot="1"><div class="cooldown"></div></div>
+                        <div class="potion-slot" data-slot="2"><div class="cooldown"></div></div>
+                    </div>
+                </div>
+                
+                <div id="ui-buttons">
+                    <button id="inventory-button" class="ui-button">Envanter</button>
+                    <button id="character-button" class="ui-button">Karakter</button>
+                    <button id="quest-button" class="ui-button">Görevler</button>
+                    <button id="map-button" class="ui-button">Harita</button>
+                    <button id="settings-button" class="ui-button">Ayarlar</button>
+                </div>
+                
+                <div id="chat-box">
+                    <div id="chat-messages"></div>
+                    <div id="chat-input-container">
+                        <input type="text" id="chat-input" placeholder="Mesajınızı yazın...">
+                        <select id="chat-channel">
+                            <option value="all">Genel</option>
+                            <option value="party">Grup</option>
+                            <option value="guild">Klan</option>
+                            <option value="trade">Ticaret</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Oyun İçi Pencereler -->
+            <div id="inventory-window" class="game-window hidden">
+                <div class="window-header">
+                    <h3>Envanter</h3>
+                    <button class="close-button">&times;</button>
+                </div>
+                <div class="window-content">
+                    <div id="inventory-grid" class="item-grid"></div>
+                    <div class="character-equipment">
+                        <div class="equipment-slot helmet" data-slot="helmet"></div>
+                        <div class="equipment-slot necklace" data-slot="necklace"></div>
+                        <div class="equipment-slot armor" data-slot="armor"></div>
+                        <div class="equipment-slot weapon" data-slot="weapon"></div>
+                        <div class="equipment-slot shield" data-slot="shield"></div>
+                        <div class="equipment-slot gloves" data-slot="gloves"></div>
+                        <div class="equipment-slot ring" data-slot="ring"></div>
+                        <div class="equipment-slot boots" data-slot="boots"></div>
+                    </div>
+                    <div class="inventory-info">
+                        <div id="gold-amount">Gold: 0</div>
+                        <div id="inventory-weight">Ağırlık: 0/100</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="character-window" class="game-window hidden">
+                <div class="window-header">
+                    <h3>Karakter</h3>
+                    <button class="close-button">&times;</button>
+                </div>
+                <div class="window-content">
+                    <div class="character-info">
+                        <div class="character-portrait"></div>
+                        <div class="character-details">
+                            <h4 id="char-name"></h4>
+                            <div id="char-class"></div>
+                            <div id="char-level"></div>
+                        </div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat-row">
+                            <div class="stat-name">Güç:</div>
+                            <div class="stat-value" id="stat-strength">10</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-name">Çeviklik:</div>
+                            <div class="stat-value" id="stat-dexterity">10</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-name">Zeka:</div>
+                            <div class="stat-value" id="stat-intelligence">10</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-name">Saldırı:</div>
+                            <div class="stat-value" id="stat-attack">10</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-name">Savunma:</div>
+                            <div class="stat-value" id="stat-defense">10</div>
+                        </div>
+                    </div>
+                    <div class="skill-tree">
+                        <h4>Yetenekler</h4>
+                        <div id="skill-list"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="quest-window" class="game-window hidden">
+                <div class="window-header">
+                    <h3>Görevler</h3>
+                    <button class="close-button">&times;</button>
+                </div>
+                <div class="window-content">
+                    <div class="quest-tabs">
+                        <button class="quest-tab active" data-tab="active">Aktif</button>
+                        <button class="quest-tab" data-tab="available">Mevcut</button>
+                        <button class="quest-tab" data-tab="completed">Tamamlanan</button>
+                    </div>
+                    <div class="quest-list" id="active-quests"></div>
+                    <div class="quest-list hidden" id="available-quests"></div>
+                    <div class="quest-list hidden" id="completed-quests"></div>
+                    <div class="quest-details" id="quest-details">
+                        <h4 id="quest-title">Görev seçin</h4>
+                        <p id="quest-description"></p>
+                        <div id="quest-objectives"></div>
+                        <div id="quest-rewards"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="map-window" class="game-window hidden">
+                <div class="window-header">
+                    <h3>Harita</h3>
+                    <button class="close-button">&times;</button>
+                </div>
+                <div class="window-content">
+                    <div id="world-map"></div>
+                    <div class="map-legend">
+                        <div class="map-marker player">Oyuncu</div>
+                        <div class="map-marker npc">NPC</div>
+                        <div class="map-marker quest">Görev</div>
+                        <div class="map-marker dungeon">Zindan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+    <script src="assets/js/phaser.min.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/character.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/network.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

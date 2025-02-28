@@ -1,0 +1,552 @@
+/* Ana Stil Dosyası */
+:root {
+  --primary-color: #5e3b11;
+  --secondary-color: #8f5922;
+  --accent-color: #ffcc33;
+  --text-color: #f0e6d2;
+  --dark-text: #33302e;
+  --background-color: #0a0908;
+  --panel-bg: rgba(10, 9, 8, 0.9);
+  --panel-border: #8f5922;
+  --button-bg: #5e3b11;
+  --button-hover: #8f5922;
+  --stat-health: #e74c3c;
+  --stat-mana: #3498db;
+  --stat-exp: #2ecc71;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cinzel', serif;
+  margin-bottom: 15px;
+  color: var(--accent-color);
+}
+
+/* Giriş ve Kayıt Ekranı */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../images/login-bg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.auth-box {
+  width: 400px;
+  padding: 30px;
+  background-color: var(--panel-bg);
+  border: 2px solid var(--panel-border);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.auth-form {
+  margin-top: 20px;
+}
+
+.auth-form.hidden {
+  display: none;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--panel-border);
+  color: var(--text-color);
+  border-radius: 5px;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--button-bg);
+  border: none;
+  color: var(--text-color);
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+  background-color: var(--button-hover);
+}
+
+.auth-switch {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.auth-switch a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 15px;
+  display: none;
+}
+
+/* Karakter Seçim Ekranı */
+#character-selection {
+  height: 100vh;
+  padding: 40px;
+  background-image: url('../images/character-bg.jpg');
+  background-size: cover;
+}
+
+.character-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.character-card {
+  width: 250px;
+  padding: 20px;
+  background-color: var(--panel-bg);
+  border: 2px solid var(--panel-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.character-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.character-portrait {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.character-info h3 {
+  margin-bottom: 5px;
+}
+
+.character-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.no-characters {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-color);
+}
+
+#create-character-button {
+  padding: 12px 24px;
+  background-color: var(--button-bg);
+  border: none;
+  color: var(--text-color);
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#create-character-button:hover {
+  background-color: var(--button-hover);
+}
+
+/* Karakter Oluşturma Ekranı */
+#character-creation {
+  height: 100vh;
+  padding: 40px;
+  background-image: url('../images/character-creation-bg.jpg');
+  background-size: cover;
+}
+
+.creation-container {
+  display: flex;
+  margin: 30px 0;
+  gap: 30px;
+}
+
+.class-selection {
+  flex: 1;
+  background-color: var(--panel-bg);
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid var(--panel-border);
+}
+
+.class-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.class-option {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.class-option:hover {
+  background-color: rgba(143, 89, 34, 0.3);
+}
+
+.class-option.selected {
+  background-color: rgba(143, 89, 34, 0.6);
+  border: 1px solid var(--accent-color);
+}
+
+.class-option img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.character-customization {
+  flex: 1;
+  background-color: var(--panel-bg);
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid var(--panel-border);
+}
+
+.creation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.creation-buttons button {
+  padding: 12px 24px;
+  background-color: var(--button-bg);
+  border: none;
+  color: var(--text-color);
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.creation-buttons button:hover {
+  background-color: var(--button-hover);
+}
+
+/* Oyun Ekranı */
+#game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#game-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#ui-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#ui-container > * {
+  pointer-events: auto;
+}
+
+/* Oyuncu Stat Barları */
+#player-stats {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 250px;
+}
+
+.stat-bar {
+  position: relative;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.stat-label {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  color: var(--text-color);
+  font-weight: bold;
+  line-height: 20px;
+  z-index: 2;
+}
+
+.stat-fill {
+  height: 100%;
+  width: 50%;
+  border-radius: 9px;
+  transition: width 0.2s;
+}
+
+.health-bar .stat-fill {
+  background-color: var(--stat-health);
+}
+
+.mana-bar .stat-fill {
+  background-color: var(--stat-mana);
+}
+
+.exp-bar .stat-fill {
+  background-color: var(--stat-exp);
+}
+
+.stat-text {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  color: var(--text-color);
+  font-weight: bold;
+  line-height: 20px;
+  z-index: 2;
+}
+
+/* Aksiyon Çubuğu */
+#action-bar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.skill-slots {
+  display: flex;
+  gap: 5px;
+}
+
+.skill-slot {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--panel-border);
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.potion-slots {
+  display: flex;
+  gap: 5px;
+}
+
+.potion-slot {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--panel-border);
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.cooldown {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+}
+
+/* UI Butonları */
+#ui-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.ui-button {
+  padding: 8px 15px;
+  background-color: var(--button-bg);
+  border: none;
+  color: var(--text-color);
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ui-button:hover {
+  background-color: var(--button-hover);
+}
+
+/* Sohbet Kutusu */
+#chat-box {
+  position: absolute;
+  bottom: 90px;
+  left: 20px;
+  width: 350px;
+  height: 200px;
+  background-color: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+#chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.chat-message {
+  margin-bottom: 5px;
+  word-wrap: break-word;
+}
+
+.own-message {
+  color: var(--accent-color);
+}
+
+.system-message {
+  color: #e67e22;
+  font-style: italic;
+}
+
+#chat-input-container {
+  display: flex;
+  border-top: 1px solid var(--panel-border);
+}
+
+#chat-input {
+  flex: 1;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: none;
+  color: var(--text-color);
+}
+
+#chat-channel {
+  width: 80px;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  border: none;
+}
+
+/* Oyun İçi Pencereler */
+.game-window {
+  position: absolute;
+  background-color: var(--panel-bg);
+  border: 2px solid var(--panel-border);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+#inventory-window {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 500px;
+}
+
+#character-window {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 600px;
+}
+
+#quest-window {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 500px;
+}
+
+#map-window {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 500px;
+}
+
+.window-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.window-header h3 {
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.window-content {
+  padding: 15px;
+  height: calc(100% - 50px);
+  overflow-y: auto;
+}
+
+/* Envanter Stili */
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
